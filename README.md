@@ -1,1 +1,1 @@
-# chase-valildator
+# chase-validator
