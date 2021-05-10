@@ -23,8 +23,10 @@ chrome_options.add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64
 @app.route("/check", methods=['GET']) 
 def validate():
   global EXCEPT_FLAG
+  driver = webdriver.Chrome(executable_path=os.environ.get(
+                   "CHROMEDRIVER_PATH"), options = chrome_options)
   # WebDriver Path for System
-  if platform.system() == ('Windows'):
+  """if platform.system() == ('Windows'):
       try:
         driver = webdriver.Chrome(executable_path=os.environ.get(
                    "CHROMEDRIVER_PATH"), options = chrome_options)
@@ -43,7 +45,7 @@ def validate():
       except Exception as e:
         print("Please download driver executable at the right location %s" % e)    
   else:
-      print("Unknown OS !")
+      print("Unknown OS !")"""
     
   
   wait = WebDriverWait(driver, 40)  
