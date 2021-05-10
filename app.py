@@ -12,36 +12,41 @@ app = Flask(__name__)
 
 EXCEPT_FLAG = False
 
+print ("Binary path: %s" % (os.environ.get("GOOGLE_CHROME_BIN")))
 chrome_options = Options()
+chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
 chrome_options.add_argument("--headless")
 chrome_options.add_argument('--disable-gpu')
 chrome_options.add_argument('--disable-blink-features=AutomationControlled')
+chrome_options.add_argument("--disable-dev-shm-usage")
+chrome_options.add_argument("--no-sandbox")
 chrome_options.add_argument("window-size=1280,800")
-chrome_options.add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.93 Safari/537.36")
+chrome_options.add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.24 Safari/537.36")
 
 
 @app.route("/check", methods=['GET']) 
 def validate():
+  print ("Driver path: %s" % (os.environ.get("CHROMEDRIVER_PATH")))
   global EXCEPT_FLAG
   driver = webdriver.Chrome(executable_path=os.environ.get(
-                   "CHROMEDRIVER_PATH"), options = chrome_options)
+                   "CHROMEDRIVER_PATH"), chrome_options = chrome_options)
   # WebDriver Path for System
   """if platform.system() == ('Windows'):
       try:
         driver = webdriver.Chrome(executable_path=os.environ.get(
-                   "CHROMEDRIVER_PATH"), options = chrome_options)
+                   "CHROMEDRIVER_PATH"), chrome_options = chrome_options)
       except Exception as e:
         print("Please download chrome driver executable at the right location %s" % e)
   elif platform.system() == ('Linux'):
       try:
         driver = webdriver.Chrome(executable_path=os.environ.get(
-                   "CHROMEDRIVER_PATH"), options = chrome_options)
+                   "CHROMEDRIVER_PATH"), chrome_options = chrome_options)
       except Exception as e:
         print("Please download chrome driver executable at the right location %s" % e)    
   elif platform.system() == ('Darwin'):
       try:
         driver = webdriver(executable_path=os.environ.get(
-                   "CHROMEDRIVER_PATH"), options = chrome_options)
+                   "CHROMEDRIVER_PATH"), chrome_options = chrome_options)
       except Exception as e:
         print("Please download driver executable at the right location %s" % e)    
   else:
