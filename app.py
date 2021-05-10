@@ -47,8 +47,8 @@ def validate():
   else:
       print("Unknown OS !")"""
     
-  
   wait = WebDriverWait(driver, 40)  
+  driver.maximize_window()
   driver.get("https://secure07b.chase.com")
   frame = wait.until(ec.visibility_of_element_located((By.XPATH, "/html/body/div[1]/iframe")))
   driver.switch_to.frame(frame)
