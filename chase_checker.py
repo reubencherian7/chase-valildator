@@ -1,3 +1,4 @@
+import os
 import platform
 import time
 from selenium import webdriver
@@ -25,17 +26,20 @@ def validate():
   # WebDriver Path for System
   if platform.system() == ('Windows'):
       try:
-        driver = webdriver.Chrome("C:\Program Files (x86)\Google\Chrome\chromedriver.exe", options = chrome_options)
+        driver = webdriver.Chrome(executable_path=os.environ.get(
+                   "CHROMEDRIVER_PATH"), options = chrome_options)
       except Exception as e:
         print("Please download chrome driver executable at the right location %s" % e)
   elif platform.system() == ('Linux'):
       try:
-        driver = webdriver.Chrome(executable_path='/home/renjith/Downloads/chromedriver', options = chrome_options)
+        driver = webdriver.Chrome(executable_path=os.environ.get(
+                   "CHROMEDRIVER_PATH"), options = chrome_options)
       except Exception as e:
         print("Please download chrome driver executable at the right location %s" % e)    
   elif platform.system() == ('Darwin'):
       try:
-        driver = webdriver(executable_path='~/Drivers/Google/Chrome/chromedriver_mac64/chromedriver', options = chrome_options)
+        driver = webdriver(executable_path=os.environ.get(
+                   "CHROMEDRIVER_PATH"), options = chrome_options)
       except Exception as e:
         print("Please download driver executable at the right location %s" % e)    
   else:
