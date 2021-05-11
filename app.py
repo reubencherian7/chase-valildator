@@ -86,10 +86,13 @@ def validate():
         print (driver.find_element_by_class_name("u-no-outline").text)
         if "It looks like this part of our site isn't working right now." in  driver.find_element_by_class_name("u-no-outline").text:
           driver.close()
-          response_object = {"status": "invalid","message": "Login Fail: Invaid credentails!"}
+          response_object = {"status": "invalid", "username":user}
           return response_object
     except Exception as ex:
       print (ex)
+      driver.close()
+      response_object = {"status": "invalid", "username":user}
+      return response_object
   driver.close()
   response_object = {"username":user, "status": "valid"}
   return response_object
